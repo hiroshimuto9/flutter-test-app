@@ -4,7 +4,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  var questionIndex = 0;
   void answerQuestion() {
+    questionIndex = questionIndex + 1;
     print('answer question');
   }
   // overrideアノテーションは無くても正常に動作するが、上書きしていることを明示的に示すために記載
@@ -17,7 +19,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(home: Scaffold(
       appBar: AppBar(title: Text('MY FIRST APP'),),
       body: Column(children: <Widget>[
-        Text('The questions'),
+        Text(
+          questions[questionIndex]
+        ),
         RaisedButton(
           child: Text('Answer 1'),
           onPressed: answerQuestion,
