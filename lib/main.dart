@@ -7,9 +7,27 @@ class MyApp extends StatelessWidget {
   // overrideアノテーションは無くても正常に動作するが、上書きしていることを明示的に示すために記載
   @override
   Widget build(BuildContext context) {
+    var questions = [
+      'What\'s is your favorite color?',
+      'Waht\'s your favorite animals?',
+    ];
     return MaterialApp(home: Scaffold(
       appBar: AppBar(title: Text('MY FIRST APP'),),
-      body: Text('This is my default text!'),
+      body: Column(children: <Widget>[
+        Text('The questions'),
+        RaisedButton(
+          child: Text('Answer 1'),
+          onPressed: null,
+        ),
+        RaisedButton(
+          child: Text('Answer 2'),
+          onPressed: null,
+        ),
+        RaisedButton(
+          child: Text('Answer 3'),
+          onPressed: null,
+        ),
+      ],),
     ));
   }
 }
