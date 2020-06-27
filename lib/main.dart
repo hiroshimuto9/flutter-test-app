@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertestapp/answer.dart';
 import './question.dart';
 
 void main() {
@@ -27,28 +28,32 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var questions = [
-      'What\'s is your favorite color?',
-      'Waht\'s your favorite animals?',
+      {
+        'questionText': 'What\'s is your favorite color?',
+        'answers': ['Red', 'Blue', 'Yellow']
+      },
+      {
+        'questionText': 'Waht\'s your favorite animals?',
+        'answers': ['Dog', 'Cat', 'Rabbit']
+      },
+      {
+        'questionText': 'Waht\'s your favorite country?',
+        'answers': ['Japan', 'America', 'Italy']
+      }
     ];
     return MaterialApp(home: Scaffold(
       appBar: AppBar(title: Text('MY FIRST APP'),),
-      body: Column(children: <Widget>[
-        Question(
-          questions[_questionIndex]
-        ),
-        RaisedButton(
-          child: Text('Answer 1'),
-          onPressed: _answerQuestion,
-        ),
-        RaisedButton(
-          child: Text('Answer 2'),
-          onPressed: () => print('Answer 2 chosen!'),
-        ),
-        RaisedButton(
-          child: Text('Answer 3'),
-          onPressed: _answerQuestion,
-        ),
-      ],),
+      body: Column(
+        children: <Widget>[
+          Question(
+            questions[_questionIndex]['questionText']
+          ),
+          // childrenがList型だからMapからListに変換する必要がある
+          ...(questions[_questionIndex]['answers'] as List<String>).map((answer){
+            return Answer(_answerQuestion, answer);
+          }).toList()
+        ],
+      ),
     ));
   }
 }
