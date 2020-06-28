@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertestapp/answer.dart';
-import './question.dart';
-
+import 'package:fluttertestapp/result.dart';
+import './quiz.dart';
+import './result.dart';
 void main() {
   runApp(MyApp());
 }
@@ -16,44 +16,40 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _questions = [
+    {
+      'questionText': 'What\'s is your favorite color?',
+      'answers': ['Red', 'Blue', 'Yellow']
+    },
+    {
+      'questionText': 'Waht\'s your favorite animals?',
+      'answers': ['Dog', 'Cat', 'Rabbit']
+    },
+    {
+      'questionText': 'Waht\'s your favorite country?',
+      'answers': ['Japan', 'America', 'Italy']
+    }
+  ];
   var _questionIndex = 0;
   void _answerQuestion() {
-    setState(() {
-      _questionIndex = _questionIndex + 1;
-    });
-
-    print('answer question');
+    if (_questionIndex < _questions.length) {
+      setState(() {
+        _questionIndex = _questionIndex + 1;
+      });
+    }
   }
   // overrideアノテーションは無くても正常に動作するが、上書きしていることを明示的に示すために記載
   @override
   Widget build(BuildContext context) {
-    const questions = [
-      {
-        'questionText': 'What\'s is your favorite color?',
-        'answers': ['Red', 'Blue', 'Yellow']
-      },
-      {
-        'questionText': 'Waht\'s your favorite animals?',
-        'answers': ['Dog', 'Cat', 'Rabbit']
-      },
-      {
-        'questionText': 'Waht\'s your favorite country?',
-        'answers': ['Japan', 'America', 'Italy']
-      }
-    ];
     return MaterialApp(home: Scaffold(
       appBar: AppBar(title: Text('MY FIRST APP'),),
-      body: Column(
-        children: <Widget>[
-          Question(
-            questions[_questionIndex]['questionText']
-          ),
-          // childrenがList型だからMapからListに変換する必要がある
-          ...(questions[_questionIndex]['answers'] as List<String>).map((answer){
-            return Answer(_answerQuestion, answer);
-          }).toList()
-        ],
-      ),
+      body: _questionIndex < _questions.length
+        ? Quiz(
+          questions: _questions,
+          questionIndex: _questionIndex,
+          answerQuestion: _answerQuestion,
+        )
+      : Result()
     ));
   }
 }
