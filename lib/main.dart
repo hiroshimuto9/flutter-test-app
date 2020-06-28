@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
   // overrideアノテーションは無くても正常に動作するが、上書きしていることを明示的に示すために記載
   @override
   Widget build(BuildContext context) {
-    var questions = [
+    const questions = [
       {
         'questionText': 'What\'s is your favorite color?',
         'answers': ['Red', 'Blue', 'Yellow']
